@@ -31,6 +31,11 @@ To detect if any kind of navigation occurred, an attacker can:
 - Use an `iframe` and count the number of times the `onload` event is triggered.
 - Check the value of `history.length`, which is accessible through any window reference. This provides the number of entries in the history of a victim that were either changed by `history.pushState` or by regular navigations. To get the value of `history.length`, an attacker changes the location of the window reference to the target website, then changes back to same-origin, and finally reads the value.
 
+An attacker can also detect if a navigation occured to a specific URL by:
+- Using an `iframe` to embed the redirecting URL (e.g. `https://example.com/admin-panel`)
+- Setting the `iframe` source to `https://example.com/admin-panel#test`
+- If no additional `onload` happens, then the frame was already on the `https://example.com/admin-panel` URL
+
 ## Download Trigger
 
 When an endpoint sets the [`Content-Disposition: attachment`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header, it instructs the browser to download the response as an attachment instead of navigating to it. Detecting if this behavior occurred might allow attackers to leak private information if the outcome depends on the state of the victim's account.
